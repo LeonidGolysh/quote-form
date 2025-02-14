@@ -1,13 +1,17 @@
 const themes = {
   light: {
     bodyBackgroundColor: '#fff',
-    formBackgroundColor: '#3ab4fa',
+    formBackgroundColor: '#fff',
     textColor: '#000',
-    buttonBackgroundColor: '#ff9800',
+    buttonBackgroundColor: '#69a84f',
     buttonTextColor: '#fff',
     buttonHoverBackgroundColor: '#fff',
-    buttonHoverTextColor: '#ff9800',
-    fieldBorderColor: '0'
+    buttonHoverTextColor: '#69a84f',
+    fieldBorderColor: '0',
+  
+    labelText: '#000',
+    termsNotice: '#37761d',
+    termsNoticeBorder: '#37761d'
   },
   dark: {
     bodyBackgroundColor: '#121212',
@@ -17,7 +21,10 @@ const themes = {
     buttonTextColor: '#fff',
     buttonHoverBackgroundColor: '#fff',
     buttonHoverTextColor: '#333',
-    fieldBorderColor: '#000'
+    fieldBorderColor: '#000',
+    labelText: '#fff',
+    termsNotice: '#fff',
+    termsNoticeBorder: '#fff'
   }
 };
 
@@ -25,6 +32,8 @@ function applyTheme(theme) {
   const form = document.querySelector('.form-fields');
   const button = document.querySelector('#submit');
   const fields = document.querySelectorAll('input, select, textarea');
+  const labels = document.querySelectorAll('h2, h3, label, .consent-text')
+  const terms = document.querySelector('.terms-notice');
 
   document.body.style.backgroundColor = theme.bodyBackgroundColor;
 
@@ -59,6 +68,15 @@ function applyTheme(theme) {
         field.style.borderColor = theme.fieldBorderColor;
       });
     });
+
+    labels.forEach(label => {
+      label.style.color = theme.labelText;
+    });
+
+    if (terms) {
+      terms.style.color = theme.termsNotice;
+      terms.style.borderColor = theme.termsNoticeBorder;
+    }
   }
 }
 
