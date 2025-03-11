@@ -1,9 +1,4 @@
-const authTokenEncoded = 'ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnpkV0lpT2lJeE1qTTBOVFkzT0Rrd0lpd2libUZ0WlNJNklrcHZhRzRnUkc5bElpd2lhV0YwSWpveE5URTJNak01TURJeUxDSmljbUZ1WTJoZmFXUWlPak1zSW1OdmJYQmhibmxmYVdRaU9qTjkuVmxHTUtyelBiTHFBV0JpSTl5T0U2LUE5UF9RaVpRTmthRGF1eVVRYzdXSQ==';
-const accountSidEncoded = 'RTFERjUyRTMtQjk3MC00RkYyLTkyRUUtNUFFQTUwQzczNTcw';
-
-// Decode the Base64-encoded values
-const authToken = atob(authTokenEncoded);
-const accountSid = atob(accountSidEncoded);
+const clientDomain = window.location.hostname;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -137,15 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     alert(error.message || 'An error occurred. Pleas try again');
   };
 
-  // Removing this because it causes the double iinitlization of the form
-  // if (typeof grecaptcha !== 'undefined') {
-  //   grecaptcha.ready(() => {
-  //     fetchInitFormData();
-  //   });
-  // } else {
-  //   console.error('reCaptcha library is not loaded.');
-  // }
-
   quoteFormContainer.addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -203,10 +189,7 @@ async function submitForm(formData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'tcs-auth-token': authToken,
-        'tcs-account-sid': accountSid,
-        // 'tcs-auth-token': localStorage.getItem('API_TOKEN'),
-        // 'tcs-account-sid': localStorage.getItem('API_SID'),
+        'Origin': clientDomain,
         'tcs-recaptcha-token': recaptchaToken
       },
       body: JSON.stringify(formData)
@@ -260,10 +243,7 @@ async function fetchInitFormData() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'tcs-auth-token': authToken,
-        'tcs-account-sid': accountSid,
-        // 'tcs-auth-token': localStorage.getItem('API_TOKEN'),
-        // 'tcs-account-sid': localStorage.getItem('API_SID'),
+        'Origin': clientDomain,
         'tcs-recaptcha-token': recaptchaToken
       }
     });
