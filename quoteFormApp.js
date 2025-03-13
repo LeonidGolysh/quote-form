@@ -1,4 +1,4 @@
-const clientDomain = window.location.hostname;
+const clientDomain = document.referrer ? new URL(document.referrer).hostname : 'unknown';
 
 document.addEventListener('DOMContentLoaded', () => {
 
