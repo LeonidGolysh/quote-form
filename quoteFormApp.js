@@ -1,4 +1,4 @@
-const clientDomain = document.referrer ? new URL(document.referrer).hostname : 'unknown';
+const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).hostname : window.location.hostname;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -184,12 +184,11 @@ async function submitForm(formData) {
       return;
     }
     
-    //Send POST req
     const response = await fetch('https://api-dev.thecleaningsoftware.com/api/quotes',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': clientDomain,
+        'Client-Origin': clientDomain,
         'tcs-recaptcha-token': recaptchaToken
       },
       body: JSON.stringify(formData)
@@ -243,7 +242,7 @@ async function fetchInitFormData() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': clientDomain,
+        'Client-Origin': clientDomain,
         'tcs-recaptcha-token': recaptchaToken
       }
     });
