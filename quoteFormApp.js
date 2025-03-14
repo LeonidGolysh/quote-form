@@ -1,4 +1,4 @@
-const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).hostname : window.location.hostname;
+const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
 
