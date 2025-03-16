@@ -1,8 +1,10 @@
 window.CONFIG = {
-  clientOrigin: document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin
+  termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
+    "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
+    "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
 };
 
-const clientDomain = window.CONFIG.clientOrigin;
+const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -77,11 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <label for="terms">I agree to the terms of service</label>
           </div>
 
-          <div class="terms-notice">
-            By submitting this form, you are acknowledging you would like to be contacted by Maids and
-            Moore at the phone number provided. Maids and Moore may contact you about its services through
-            various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply.
-          </div>
+          <div id="termsNotice" class="terms-notice"></div>
 
           <button id="submit">Submit</button>
         </div>
@@ -98,6 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('Error: Element with id "quoteForm" not found');
     return;
+  }
+
+  const termsElement = document.getElementById("termsNotice");
+  if (termsElement && window.CONFIG.termsOfServiceText) {
+    termsElement.innerText = window.CONFIG.termsOfServiceText;
   }
 
   //Universal function for getting field values
