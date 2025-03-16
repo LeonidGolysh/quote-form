@@ -1,4 +1,8 @@
-const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin;
+window.CONFIG = {
+  clientOrigin: document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin
+};
+
+const clientDomain = window.CONFIG.clientOrigin;
 
 document.addEventListener('DOMContentLoaded', () => {
 
