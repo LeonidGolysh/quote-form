@@ -1,4 +1,7 @@
-window.CONFIG = {
+window.TCS = window.TCS || {};
+window.TCS.quoteForm = window.TCS.quoteForm || {};
+
+window.TCS.quoteForm.config = {
   termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
     "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
     "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
@@ -99,8 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const termsElement = document.getElementById("termsNotice");
-  if (termsElement && window.CONFIG.termsOfServiceText) {
-    termsElement.innerText = window.CONFIG.termsOfServiceText;
+  if (termsElement && window.TCS.quoteForm.config.termsOfServiceText) {
+    termsElement.innerText = window.TCS.quoteForm.config.termsOfServiceText;
   }
 
   //Universal function for getting field values
