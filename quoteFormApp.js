@@ -1,15 +1,21 @@
-window.TCS = window.TCS || {};
-window.TCS.quoteForm = window.TCS.quoteForm || {};
+// window.TCS = window.TCS || {};
+// window.TCS.quoteForm = window.TCS.quoteForm || {};
 
-window.TCS.quoteForm.config = {
-  termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
-    "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
-    "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
-};
+// window.TCS.quoteForm.config = {
+//   termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
+//     "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
+//     "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
+// };
 
 const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  const config = window.TCS && window.TCS.quoteForm && window.TCS.quoteForm.config ? window.TCS.quoteForm.config : {
+    termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
+      "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
+      "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
+  };
 
   var formHTML = `
   <div id="loader" style="display: flex;">
@@ -89,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </form>
     </div>
   </div>`;
-  
+
   const quoteFormContainer = document.getElementById('quoteForm');
   
   if (quoteFormContainer) {
@@ -102,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const termsElement = document.getElementById("termsNotice");
-  if (termsElement && window.TCS.quoteForm.config.termsOfServiceText) {
-    termsElement.innerText = window.TCS.quoteForm.config.termsOfServiceText;
+  if (termsElement && config.termsOfServiceText) {
+    termsElement.innerText = config.termsOfServiceText;
   }
 
   //Universal function for getting field values
