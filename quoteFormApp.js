@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('message', (event) => {
-    if (event.origin !== clientDomain) {
-      console.log('Blocked message from untrusted domain: ', event.origin);
-      return;
-    }
+    // if (event.origin !== clientDomain) {
+    //   console.log('Blocked message from untrusted domain: ', event.origin);
+    //   return;
+    // }
 
     if (event.data && event.data.termsOfServiceText) {
       config = event.data;
