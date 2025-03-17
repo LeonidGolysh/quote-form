@@ -11,11 +11,22 @@ const clientDomain = document.referrer && document.referrer !== '' ? new URL(doc
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const config = window.TCS && window.TCS.quoteForm && window.TCS.quoteForm.config ? window.TCS.quoteForm.config : {
+  let config = {
     termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
       "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
       "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
   };
+
+  window.addEventListener('message', (event) => {
+    if (event.origin !== clientDomain) {
+      console.log('Blocked message from untrusted domain: ', event.origin);
+      return;
+    }
+
+    if (event.data && event.data.termsOfServiceText) {
+      config = event.data;
+    }
+  });
 
   var formHTML = `
   <div id="loader" style="display: flex;">
