@@ -17,16 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
       "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
   };
 
-  window.addEventListener('message', (event) => {
-    // if (event.origin !== clientDomain) {
-    //   console.log('Blocked message from untrusted domain: ', event.origin);
-    //   return;
-    // }
+  const urlParams = new URLSearchParams(window.location.search);
 
-    if (event.data && event.data.termsOfServiceText) {
-      config = event.data;
-    }
-  });
+  if (urlParams.has('termsOfServiceText')) {
+    config.termsOfServiceText = decodeURIComponent(urlParams.get('termsOfServiceText'));
+  }
 
   var formHTML = `
   <div id="loader" style="display: flex;">
