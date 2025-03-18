@@ -8,7 +8,6 @@ const themes = {
     buttonHoverBackgroundColor: '#fff',
     buttonHoverTextColor: '#69a84f',
     fieldBorderColor: '0',
-  
     labelText: '#000',
     termsNotice: '#37761d',
     termsNoticeBorder: '#37761d'
@@ -21,6 +20,19 @@ const themes = {
     buttonTextColor: '#fff',
     buttonHoverBackgroundColor: '#fff',
     buttonHoverTextColor: '#333',
+    fieldBorderColor: '#000',
+    labelText: '#fff',
+    termsNotice: '#fff',
+    termsNoticeBorder: '#fff'
+  },
+  custom: {
+    bodyBackgroundColor: '#f4f4f4',
+    formBackgroundColor: '#a1a4a7',
+    textColor: '#333',
+    buttonBackgroundColor: '#ffa500',
+    buttonTextColor: '#fff',
+    buttonHoverBackgroundColor: '#fff',
+    buttonHoverTextColor: '#ffa500',
     fieldBorderColor: '#000',
     labelText: '#fff',
     termsNotice: '#fff',
@@ -87,11 +99,6 @@ function applyTheme(theme) {
 
 function applyThemeFromURL() {
   const selectTheme = getQueryParameter('theme');
-  
-  if (selectTheme === 'custom') {
-    console.log("Custom theme selected");
-    return;
-  }
 
   const theme = themes[selectTheme] || themes['light'];
   applyTheme(theme);
