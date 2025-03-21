@@ -92,7 +92,7 @@ function applyTheme(theme) {
   }
 }
 
-  function getQueryParameter(param) {
+function getQueryParameter(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }

@@ -19,8 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  if (urlParams.has('termsOfServiceText')) {
-    config.termsOfServiceText = decodeURIComponent(urlParams.get('termsOfServiceText'));
+  if (urlParams.has('data')) {
+    try {
+      const parseData = JSON.parse(decodeURIComponent(urlParams.get("data")));
+
+      if (parseData.config) {
+        config = { ...config, ...parseData.config };
+      }
+
+      if (parseData.theme) {
+        theme = { ...theme, ...parseData.theme };
+        applyTheme(parseData.theme);
+      }
+    } catch (error) {
+      console.error("Error parsing URL data: ", error);
+    }
+    // config.termsOfServiceText = decodeURIComponent(urlParams.get('termsOfServiceText'));
   }
 
   var formHTML = `
