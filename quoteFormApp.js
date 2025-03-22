@@ -1,12 +1,3 @@
-// window.TCS = window.TCS || {};
-// window.TCS.quoteForm = window.TCS.quoteForm || {};
-
-// window.TCS.quoteForm.config = {
-//   termsOfServiceText: " By submitting this form, you are acknowledging you would like to be contacted by Maids and" +
-//     "Moore at the phone number provided. Maids and Moore may contact you about its services through" +
-//     "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
-// };
-
 const clientDomain = document.referrer && document.referrer !== '' ? new URL(document.referrer).origin : window.location.origin;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,7 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
       "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
   };
 
+  let theme = {};
+
   const urlParams = new URLSearchParams(window.location.search);
+
+  let hasCustomTheme = false;
 
   if (urlParams.has('data')) {
     try {
@@ -28,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (parseData.theme) {
-        theme = { ...theme, ...parseData.theme };
+        theme = { ...parseData.theme };
+        hasCustomTheme = true;
         applyTheme(parseData.theme);
       }
     } catch (error) {
       console.error("Error parsing URL data: ", error);
     }
-    // config.termsOfServiceText = decodeURIComponent(urlParams.get('termsOfServiceText'));
   }
 
   var formHTML = `
@@ -121,7 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (quoteFormContainer) {
     quoteFormContainer.innerHTML = formHTML;
 
-    applyThemeFromURL();
+    if (!hasCustomTheme) {
+      applyThemeFromURL();
+    }
   } else {
     console.log('Error: Element with id "quoteForm" not found');
     return;
