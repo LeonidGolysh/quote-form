@@ -25,19 +25,19 @@ const themes = {
     termsNotice: '#fff',
     termsNoticeBorder: '#fff'
   },
-  custom: {
-    bodyBackgroundColor: '#f4f4f4',
-    formBackgroundColor: '#a1a4a7',
-    textColor: '#333',
-    buttonBackgroundColor: '#ffa500',
-    buttonTextColor: '#fff',
-    buttonHoverBackgroundColor: '#fff',
-    buttonHoverTextColor: '#ffa500',
-    fieldBorderColor: '#000',
-    labelText: '#fff',
-    termsNotice: '#fff',
-    termsNoticeBorder: '#fff'
-  }
+  // custom: {
+  //   bodyBackgroundColor: '#f4f4f4',
+  //   formBackgroundColor: '#a1a4a7',
+  //   textColor: '#333',
+  //   buttonBackgroundColor: '#ffa500',
+  //   buttonTextColor: '#fff',
+  //   buttonHoverBackgroundColor: '#fff',
+  //   buttonHoverTextColor: '#ffa500',
+  //   fieldBorderColor: '#000',
+  //   labelText: '#fff',
+  //   termsNotice: '#fff',
+  //   termsNoticeBorder: '#fff'
+  // }
 };
 
 function applyTheme(theme) {
