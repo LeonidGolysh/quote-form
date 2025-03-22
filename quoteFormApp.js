@@ -22,8 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
         config = { ...config, ...parseData.config };
       }
 
+      // If there are no themes in config, then the light theme is used by default
+      if (!parseData.theme) {
+        parseData.theme = {
+          bodyBackgroundColor: '#fff',
+          formBackgroundColor: '#fff',
+          textColor: '#000',
+          buttonBackgroundColor: '#69a84f',
+          buttonTextColor: '#fff',
+          buttonHoverBackgroundColor: '#fff',
+          buttonHoverTextColor: '#69a84f',
+          fieldBorderColor: '0',
+          labelText: '#000',
+          termsNotice: '#37761d',
+          termsNoticeBorder: '#37761d'
+        };
+      }
+
       if (parseData.theme) {
-        theme = { ...parseData.theme };
+        theme = { ...theme, ...parseData.theme };
         hasCustomTheme = true;
         applyTheme(parseData.theme);
       }
