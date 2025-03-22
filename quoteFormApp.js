@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "various automated and recorded means including telephone, text and email. Note: Messaging frequency may vary and data rates may apply."
   };
 
-  let theme = {};
+  let theme = null;
 
   const urlParams = new URLSearchParams(window.location.search);
 
@@ -23,26 +23,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // If there are no themes in config, then the light theme is used by default
-      if (!parseData.theme) {
-        parseData.theme = {
-          bodyBackgroundColor: '#fff',
-          formBackgroundColor: '#fff',
-          textColor: '#000',
-          buttonBackgroundColor: '#69a84f',
-          buttonTextColor: '#fff',
-          buttonHoverBackgroundColor: '#fff',
-          buttonHoverTextColor: '#69a84f',
-          fieldBorderColor: '0',
-          labelText: '#000',
-          termsNotice: '#37761d',
-          termsNoticeBorder: '#37761d'
-        };
-      }
+      // if (!parseData.theme) {
+      //   parseData.theme = {
+      //     bodyBackgroundColor: '#fff',
+      //     formBackgroundColor: '#fff',
+      //     textColor: '#000',
+      //     buttonBackgroundColor: '#69a84f',
+      //     buttonTextColor: '#fff',
+      //     buttonHoverBackgroundColor: '#fff',
+      //     buttonHoverTextColor: '#69a84f',
+      //     fieldBorderColor: '0',
+      //     labelText: '#000',
+      //     termsNotice: '#37761d',
+      //     termsNoticeBorder: '#37761d'
+      //   };
+      // }
 
       if (parseData.theme) {
-        theme = { ...theme, ...parseData.theme };
+        // theme = { ...theme, ...parseData.theme };
+        theme = parseData.theme;
         hasCustomTheme = true;
-        applyTheme(parseData.theme);
+        // applyTheme(parseData.theme);
       }
     } catch (error) {
       console.error("Error parsing URL data: ", error);
@@ -133,7 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (quoteFormContainer) {
     quoteFormContainer.innerHTML = formHTML;
 
-    if (!hasCustomTheme) {
+    if (theme) {
+      applyTheme(theme);
+    } else {
       applyThemeFromURL();
     }
   } else {
