@@ -102,11 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <div id="termsNotice" class="terms-notice"></div>
 
+          <div class="cf-challenge" 
+            data-sitekey="0x4AAAAAABk1RTBS0EvyjxJM"
+            data-theme="light"
+            data-callback="onTurnstileSuccess">
+          </div>
+
           <button id="submit">Submit</button>
         </div>
       </form>
     </div>
   </div>`;
+
+  window.turnstileToken = null;
 
   const quoteFormContainer = document.getElementById('quoteForm');
   
@@ -199,20 +207,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.onload = function () {
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.ready(onReCaptchaLoad);
+    if (typeof turnstile === 'undefined') {
+      console.error('Turnstile not loaded');
     } else {
-      console.error('reCaptcha not loaded');
+      console.log('Turnstile loaded');
     }
   }
 });
 
 async function submitForm(formData) {
   try {
-    const recaptchaToken = await grecaptcha.execute('6Le040AqAAAAANpuTZ9SlXSOO78-AYfUs0AyyYjI', { action: 'submit' });
-    
-    if (!recaptchaToken) {
-      console.error('Failed to get reCAPTCHA token.');
+    if (!window.turnstileToken) {
+      console.error('Failed to get Turnstile token.');
       return;
     }
     
@@ -221,7 +227,7 @@ async function submitForm(formData) {
       headers: {
         'Content-Type': 'application/json',
         'Client-Origin': clientDomain,
-        'tcs-recaptcha-token': recaptchaToken
+        'tcs-recaptcha-token': window.turnstileToken
       },
       body: JSON.stringify(formData)
     });
@@ -245,16 +251,6 @@ async function submitForm(formData) {
   }
 }
 
-function onReCaptchaLoad() {
-  if (typeof grecaptcha !== 'undefined') {
-    grecaptcha.ready(() => {
-      fetchInitFormData();
-    });
-  } else {
-    console.error('reCaptcha not loaded');
-  }
-}
-
 // Function for getting data from api
 async function fetchInitFormData() {
   try {
@@ -263,10 +259,8 @@ async function fetchInitFormData() {
       loader.style.display = 'flex';
     }
 
-    const recaptchaToken = await grecaptcha.execute('6Le040AqAAAAANpuTZ9SlXSOO78-AYfUs0AyyYjI', { action: 'submit' });
-
-    if (!recaptchaToken) {
-      console.error('Failed to get reCAPTCHA token.');
+    if (!window.turnstileToken) {
+      console.error('Failed to get Turnstile token.');
       return;
     }
     
@@ -275,7 +269,7 @@ async function fetchInitFormData() {
       headers: {
         'Content-Type': 'application/json',
         'Client-Origin': clientDomain,
-        'tcs-recaptcha-token': recaptchaToken
+        'tcs-recaptcha-token': window.turnstileToken
       }
     });
     if (!response.ok) {
@@ -320,4 +314,11 @@ function populateForm(data) {
   populateSelect('square_footage', data.square_footages, 'id', 'range_limit');
   populateSelect('hear_about', data.hear_about_types, 'id', 'name');
   populateSelect('type_location', data.locations, 'id', 'name');
+}
+
+function onTurnstileSuccess(token) {
+  console.log("Turnstile token: ", token)
+  window.turnstileToken = token;
+
+  fetchInitFormData();
 }
