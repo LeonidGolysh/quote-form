@@ -130,6 +130,12 @@ select:focus {
   color: #ffa500;
 }
 
+.cf-challenge {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+}
+
 #loader {
   position: fixed;
   top: 0;

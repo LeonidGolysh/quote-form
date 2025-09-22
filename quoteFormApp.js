@@ -175,6 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
   quoteFormContainer.addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    if (!window.turnstileToken) {
+      alert("Please verify that you are human before submitting");
+      return;
+    }
+
     //Data to send
     const formData = {
       client_first_name: getFormFieldValue('first_name'),
@@ -319,6 +324,4 @@ function populateForm(data) {
 function onTurnstileSuccess(token) {
   console.log("Turnstile token: ", token)
   window.turnstileToken = token;
-
-  fetchInitFormData();
 }
