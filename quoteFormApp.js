@@ -232,7 +232,7 @@ async function submitForm(formData) {
       headers: {
         'Content-Type': 'application/json',
         'Client-Origin': clientDomain,
-        'tcs-recaptcha-token': window.turnstileToken
+        'tcs-turnstile-token': window.turnstileToken
       },
       body: JSON.stringify(formData)
     });
@@ -274,7 +274,7 @@ async function fetchInitFormData() {
       headers: {
         'Content-Type': 'application/json',
         'Client-Origin': clientDomain,
-        'tcs-recaptcha-token': window.turnstileToken
+        'tcs-turnstile-token': window.turnstileToken
       }
     });
     if (!response.ok) {
